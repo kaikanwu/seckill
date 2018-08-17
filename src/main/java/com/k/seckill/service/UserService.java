@@ -1,5 +1,9 @@
 package com.k.seckill.service;
 
-public class UserService {
+import com.k.seckill.model.User;
+
+public interface UserService {
+
+    public User register(User user);
 
 }
