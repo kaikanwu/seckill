@@ -18,10 +18,10 @@ public class UserServiceTest {
     @Test
     public void test() {
 
-        User user = new User("k", "1234");
-
-
-        Assert.assertNotNull(user);
+//        User user = new User("k", "1234");
+//
+//
+//        Assert.assertNotNull(user);
 
 //        fail("not implement yet");
     }
