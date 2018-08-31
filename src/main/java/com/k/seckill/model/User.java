@@ -1,20 +1,24 @@
 package com.k.seckill.model;
 
+
+
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable{
+    private static final long serialVersionUID = 7521391360002308184L;
 
 
-    @Id
+    @javax.persistence.Id
     @Column(name="username")
-    private String userName;
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -22,17 +26,27 @@ public class User {
     @Column(name = "id")
     private Integer id;
 
-
-
-
-
     public User() {
 
 
     }
 
+
+
+    private String repassword;
+
+    public String getRepassword() {
+        return repassword;
+    }
+
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
+    }
+
+
+
     public User(String userName, String password, Integer id ) {
-        this.userName = userName;
+        this.username = userName;
         this.password = password;
         this.id = id;
 
@@ -41,18 +55,18 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
+                "userName='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", id=" + id +
                 '}';
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setusername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
