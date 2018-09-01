@@ -18,17 +18,33 @@ public class User implements Serializable{
     private static final long serialVersionUID = 7521391360002308184L;
 
 
+    /**
+     * @NotBlank -> use the JSR 303 做服务端验证，具体方法是添加注解
+     * 服务端验证比客户端的验证更加可靠，
+     * TODO notBlank 和 notnull 的区别
+     */
     @javax.persistence.Id
     @Column(name="username")
     @NotBlank(message = "username不能为空")
     private String username;
 
     @Column(name = "password")
-    @Size(min = 4, max = 6, message = "password的长度需要4到6个字符")
+    @NotBlank(message = "password不能为空")
     private String password;
+//    @Size(min = 4, max = 6, message = "password的长度需要4到6个字符")
+
 
     @Column(name = "id")
     private Integer id;
+
+
+    /**
+     * used for md5
+     */
+    @Column(name = "dbflag")
+    private String dbflag;
+
+
 
     public User() {
 
@@ -56,10 +72,32 @@ public class User implements Serializable{
     }
 
 
+
     /**
      * Setter and getter
      * @return
      */
+
+
+
+    public String getDbflag() {
+        return dbflag;
+    }
+
+    public void setDbflag(String dbflag) {
+        this.dbflag = dbflag;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+
+
     public String getRepassword() {
         return repassword;
     }
@@ -68,14 +106,6 @@ public class User implements Serializable{
         this.repassword = repassword;
     }
 
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setusername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

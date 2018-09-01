@@ -20,7 +20,7 @@
                     <div class="input-group">
                         <span class="input-group-addon">username</span>
                         <!-- <input 	id="username" type="text" name="username" class="form-control" placeholder="用户名"> -->
-                        <input id="username" type="text" th:field="*{username}" class="form-control" placeholder="用户名" required >
+                        <input id="username" type="text" th:field="*{username}" class="form-control" placeholder="用户名"  >
                     </div>
                     <div><span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red;"></span></div>
                     <br>
@@ -56,16 +56,28 @@
 <script th:src="@{/js/jquery.md5.js}"></script>
 
 <script>
-    $("registerForm").validate({
+    $("#registerForm").validate({
         rules:{
+//            username: "required",
+
             password:{
-                required:true,
-                minlength: 4,
-                maxlength: 6
+//                required:true,
+//                minlength: 4,
+//                maxlength: 6
             },
+
             repassword:{
                 equalTo:"#password"
             }
+        },
+        submitHandler: function(form){
+            debugger;
+            //在这里加密
+            var salt = 'springboot';
+            var newPassword = $.md5($("#password").val() + salt);
+            $("#password").val(newPassword);
+            //加密后才提及表单
+            form.submit();
         }
 
     });
