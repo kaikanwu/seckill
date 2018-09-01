@@ -7,6 +7,8 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
@@ -18,9 +20,11 @@ public class User implements Serializable{
 
     @javax.persistence.Id
     @Column(name="username")
+    @NotBlank(message = "username不能为空")
     private String username;
 
     @Column(name = "password")
+    @Size(min = 4, max = 6, message = "password的长度需要4到6个字符")
     private String password;
 
     @Column(name = "id")
@@ -31,17 +35,7 @@ public class User implements Serializable{
 
     }
 
-
-
     private String repassword;
-
-    public String getRepassword() {
-        return repassword;
-    }
-
-    public void setRepassword(String repassword) {
-        this.repassword = repassword;
-    }
 
 
 
@@ -60,6 +54,20 @@ public class User implements Serializable{
                 ", id=" + id +
                 '}';
     }
+
+
+    /**
+     * Setter and getter
+     * @return
+     */
+    public String getRepassword() {
+        return repassword;
+    }
+
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
+    }
+
 
     public String getUsername() {
         return username;
