@@ -19,4 +19,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.saveAndFlush(user);
     }
 
+    @Override
+    public User getUser(String username) {
+        return userRepository.getOne(username);
+    }
 }

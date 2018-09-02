@@ -74,6 +74,7 @@ public class RegisterController {
 //        }
 
         return new ModelAndView("register");
+
     }
 
 
