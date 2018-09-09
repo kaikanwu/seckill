@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
                 userRedis.put(user.getUsername(), user, -1);
 
             }else {
+                //还为空 可能是it没有注册
                 return null;
             }
         }
@@ -57,4 +58,9 @@ public class UserServiceImpl implements UserService {
         userRedis.put(token, user, 3600);
     }
 
+
+    @Override
+    public Object getUserFromRedisByToken(String token) {
+        return userRedis.get(token);
+    }
 }

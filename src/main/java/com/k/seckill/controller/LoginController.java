@@ -75,7 +75,7 @@ public class LoginController {
 //                session.setAttribute("user", dbUser);
 //                logger.info("==============登录成功!========");
 
-                //将登陆成功的user存入redis中
+                //将登陆成功的user信息存入redis中
                 String token = UUIDUtil.getUUID();
                 userService.saveUserToRedisByToken(dbUser, token);
                 Cookie cookie = new Cookie("token", token);
@@ -83,9 +83,8 @@ public class LoginController {
                 cookie.setPath("/");
                 response.addCookie(cookie);
 
-
-
                 return "redirect:/home";
+
             }else {
                 return "login";
             }

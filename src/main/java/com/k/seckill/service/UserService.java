@@ -11,5 +11,6 @@ public interface UserService {
 
     public void saveUserToRedisByToken(UserVO dbUser, String token);
 
+    public Object getUserFromRedisByToken(String token);
 
 }
