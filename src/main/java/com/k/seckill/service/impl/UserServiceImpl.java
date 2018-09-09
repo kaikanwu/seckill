@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
     private UserRedis userRedis;
 
     @Override
@@ -39,10 +40,12 @@ public class UserServiceImpl implements UserService {
                 userRedis.put(user.getUsername(), user, -1);
 
             }else {
-                //还为空 可能是it没有注册
+                //还为空 可能是没有注册
                 return null;
             }
         }
+
+        //将user 转化为 uservo对象
         BeanUtils.copyProperties(user, userVO);
 
         return userVO;

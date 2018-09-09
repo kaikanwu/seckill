@@ -36,11 +36,11 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver{
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
         String requestParameter_token = request.getParameter("token");
-        String Cokies_token = getParameterCokies(request,"token");
-        if(requestParameter_token == null && Cokies_token == null){
+        String Cookies_token = getParameterCokies(request,"token");
+        if(requestParameter_token == null && Cookies_token == null){
             return null;
         }
-        return userService.getUserFromRedisByToken((requestParameter_token != null ? requestParameter_token : Cokies_token));
+        return userService.getUserFromRedisByToken((requestParameter_token != null ? requestParameter_token : Cookies_token));
     }
 
     @Override
