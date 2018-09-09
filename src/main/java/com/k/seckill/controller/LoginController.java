@@ -3,6 +3,8 @@ package com.k.seckill.controller;
 import com.k.seckill.model.User;
 import com.k.seckill.service.UserService;
 import com.k.seckill.util.MD5Util;
+import com.k.seckill.util.ValidateCode;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -38,9 +42,17 @@ public class LoginController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@Valid User user, BindingResult bindingResult, HttpSession session, ModelAndView modelAndView) {
+    public String login(@Valid User user, BindingResult bindingResult, HttpSession session, Model model, String code) {
         if (bindingResult.hasErrors()) {
-            return "/login";
+            return "login";
+        }
+
+
+        String sessionCode = (String) session.getAttribute("code");
+        if (!StringUtils.equalsIgnoreCase(code, sessionCode)) {  //忽略验证码大小写
+            model.addAttribute("message", "验证码错误");
+            return "login";
+
         }
 
         logger.info("==============" + user.getPassword());
@@ -64,9 +76,31 @@ public class LoginController {
         }else {
             return "login";
         }
+    }
 
 
+    /**
+     * 图形验证码
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/validateCode")
+    public String validateCode(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        // 设置响应的类型格式为图片格式
+        response.setContentType("image/jpeg");
+        //禁止图像缓存。
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
 
+        HttpSession session = request.getSession();
+
+        ValidateCode vCode = new ValidateCode(120,40,5,100);
+        session.setAttribute("code", vCode.getCode());
+        vCode.write(response.getOutputStream());
+        return null;
     }
 
 

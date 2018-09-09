@@ -33,11 +33,11 @@
                     <div><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;"></span></div>
 
                     <br>
-                    <!--<div class="input-group">-->
-                        <!--<span class="input-group-addon">验证码</span>-->
-                        <!--<input type="text" id="code" name="code" class="form-control" style="width:250px;"/>-->
-                        <!--<img id="imgObj" alt="验证码" src="/validateCode" class="img-responsive" onclick="changeImg()"/>-->
-                    <!--</div>-->
+                    <div class="input-group">
+                        <span class="input-group-addon">验证码</span>
+                        <input type="text" id="code" name="code" class="form-control" style="width:250px;"/>
+                        <img id="imgObj" alt="验证码" src="/validateCode" class="img-responsive" onclick="changeImg()"/>
+                    </div>
 
                     <br>
                     <button type="submit" class="btn btn-primary register-btn">登录</button>

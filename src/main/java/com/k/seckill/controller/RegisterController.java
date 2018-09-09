@@ -72,8 +72,8 @@ public class RegisterController {
 //        }else {
 //            return new ModelAndView("register");
 //        }
-
-        return new ModelAndView("register");
+//        return new ModelAndView("register");
+        return new ModelAndView("login");
 
     }
 
