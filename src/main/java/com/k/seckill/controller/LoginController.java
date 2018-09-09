@@ -3,7 +3,9 @@ package com.k.seckill.controller;
 import com.k.seckill.model.User;
 import com.k.seckill.service.UserService;
 import com.k.seckill.util.MD5Util;
+import com.k.seckill.util.UUIDUtil;
 import com.k.seckill.util.ValidateCode;
+import com.k.seckill.vo.UserVO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,7 +46,7 @@ public class LoginController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@Valid User user, BindingResult bindingResult, HttpSession session, Model model, String code) {
+    public String login(@ModelAttribute(value="user") @Valid User user, BindingResult bindingResult, HttpSession session, String code, Model model, HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             return "login";
         }
@@ -59,14 +63,27 @@ public class LoginController {
         logger.info("==============" + user.getUsername());
 
         //判断用户是否存在
-        User temp = userService.getUser(user.getUsername());
+//        User temp = userService.getUser(user.getUsername());
+        UserVO dbUser = userService.getUser(user.getUsername());
 
-        if (temp != null) {
-            String inputPassword = MD5Util.inputToDB(user.getPassword(), temp.getDbflag());
+
+
+        if (dbUser != null) {
+            String inputPassword = MD5Util.inputToDB(user.getPassword(), dbUser.getDbflag());
             //判断密码是否相等
-            if (temp.getPassword().equals(inputPassword)) {
-                session.setAttribute("user", temp);
-                logger.info("==============登录成功!========");
+            if (dbUser.getPassword().equals(inputPassword)) {
+//                session.setAttribute("user", dbUser);
+//                logger.info("==============登录成功!========");
+
+                //将登陆成功的user存入redis中
+                String token = UUIDUtil.getUUID();
+                userService.saveUserToRedisByToken(dbUser, token);
+                Cookie cookie = new Cookie("token", token);
+                cookie.setMaxAge(3600);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+
+
 
                 return "redirect:/home";
             }else {

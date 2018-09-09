@@ -2,7 +2,7 @@ package com.k.seckill.redis;
 
 import com.k.seckill.model.User;
 
-public class UserRedies extends BaseRedis<User> {
+public class UserRedis extends BaseRedis<User> {
 
     private static final String REDIS_KEY = "com.k.seckill.redis.UserRedis";
 
@@ -14,7 +14,7 @@ public class UserRedies extends BaseRedis<User> {
 //
 //    public void add(String key, Long time, User user) {
 //        Gson gson = new Gson();
-
+//
 //    }
 
 }
