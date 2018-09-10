@@ -50,15 +50,11 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             return "login";
         }
-
-
         String sessionCode = (String) session.getAttribute("code");
         if (!StringUtils.equalsIgnoreCase(code, sessionCode)) {  //忽略验证码大小写
             model.addAttribute("message", "验证码错误");
             return "login";
-
         }
-
         logger.info("==============" + user.getPassword());
         logger.info("==============" + user.getUsername());
 
@@ -66,15 +62,12 @@ public class LoginController {
 //        User temp = userService.getUser(user.getUsername());
         UserVO dbUser = userService.getUser(user.getUsername());
 
-
-
         if (dbUser != null) {
             String inputPassword = MD5Util.inputToDB(user.getPassword(), dbUser.getDbflag());
             //判断密码是否相等
             if (dbUser.getPassword().equals(inputPassword)) {
 //                session.setAttribute("user", dbUser);
 //                logger.info("==============登录成功!========");
-
                 //将登陆成功的user信息存入redis中
                 String token = UUIDUtil.getUUID();
                 userService.saveUserToRedisByToken(dbUser, token);
