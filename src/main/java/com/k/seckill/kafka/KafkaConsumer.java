@@ -29,11 +29,15 @@ public class KafkaConsumer {
 
     @KafkaListener(id="seconds-kill", topics = "test", groupId = "seconds-kill")
     public void listener(ConsumerRecord<?, ?> record) {
+
+        //处理接收到的data record.value()
         String[] messages = record.value().toString().split(",");
         String courseNo  = messages[0];
         String username  = messages[1];
 
         //在业务层已经过滤了很多请求，这里开始直接访问数据库
+
+
         Course course = courseService.findCourseByCourseNo(courseNo);
         int stock = course.getStockQuantity();
         if(stock <= 0){

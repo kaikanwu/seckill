@@ -144,11 +144,18 @@ public class SeckillServiceImpl implements ISeckillService{
     }
 
 
-
+    /**
+     * 第三版: 增加动态地址
+     * @param user
+     * @param courseNo
+     * @param path
+     * @return
+     */
     @Override
     public Result<Orders> seckillFlow(User user, String courseNo, String path) {
         //验证path
         String redisPath = (String) seckillRedis.getString("path"+"_"+courseNo+"_"+user.getUsername());
+        //如果地址不相同。返回错误信息
         if(!path.equals(redisPath)){
             return Result.failure(ResultCode.SECKILL_PATH_ERROR);
         }
@@ -175,7 +182,14 @@ public class SeckillServiceImpl implements ISeckillService{
     }
 
 
-
+    /**
+     * 第四版
+     * @param user
+     * @param courseNo
+     * @param path
+     * @param request
+     * @return
+     */
     @Override
     public Result<Orders> seckillFlow(User user, String courseNo, String path, HttpServletRequest request) {
         //ip验证

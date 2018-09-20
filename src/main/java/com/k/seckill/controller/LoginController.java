@@ -70,6 +70,7 @@ public class LoginController {
                 //将登陆成功的user信息存入redis中
                 String token = UUIDUtil.getUUID();
                 userService.saveUserToRedisByToken(dbUser, token);
+                System.out.println("token===== "+token);
                 Cookie cookie = new Cookie("token", token);
                 cookie.setMaxAge(3600);
                 cookie.setPath("/");
