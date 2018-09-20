@@ -30,6 +30,7 @@ public abstract class BaseRedis<T> {
      * @return
      */
     public double decr(String key, double by){
+        //-by -> 减
         return redisTemplate.opsForValue().increment(key, -by);
     }
 
@@ -44,6 +45,13 @@ public abstract class BaseRedis<T> {
     }
 
 
+    /**
+     *  putString 1, 多一个flag isToString
+     * @param key
+     * @param domain
+     * @param expire
+     * @param isToString
+     */
     public void putString(String key, Object domain, long expire, boolean isToString){
         if(isToString){
             String str = beanToString(domain);
@@ -56,6 +64,12 @@ public abstract class BaseRedis<T> {
         }
     }
 
+    /**
+     * putString 2
+     * @param key
+     * @param domain
+     * @param expire
+     */
     public void putString(String key, Object domain, long expire){
         valueOperations.set(key, domain);
         if(expire != -1){
@@ -63,12 +77,24 @@ public abstract class BaseRedis<T> {
         }
     }
 
+
+    /**
+     * getString 1
+     * @param key
+     * @param clazz
+     * @return
+     */
     public Object getString(String key, Class<T> clazz) {
         String str = (String) valueOperations.get(key);
         return stringToBean(str, clazz);
     }
 
 
+    /**
+     * getString 2
+     * @param key
+     * @return
+     */
     public Object getString(String key) {
         return valueOperations.get(key);
     }

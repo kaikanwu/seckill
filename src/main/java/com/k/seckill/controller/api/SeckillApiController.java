@@ -23,6 +23,7 @@ public class SeckillApiController extends BaseApiController implements Initializ
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        //缓存所有的课程
         seckillService.cacheAllCourse();
     }
 

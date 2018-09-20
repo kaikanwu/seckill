@@ -43,9 +43,14 @@ public class SeckillServiceImpl implements ISeckillService{
     public SeckillRedis seckillRedis;
 
 
+    //使用KafkaTempalte进行发送消息
     @Autowired
     public KafkaTemplate<String, String > kafkaTempalte;
 
+    /**
+     * 通过redis中的数据变化，来初始化这个变量
+     * 这是在本地内存中加一个标志位flag, 判断是否被秒杀，若没有库存为true
+     */
     private static Map<String, Boolean> isSeckill = new HashMap<String, Boolean>();
 
 
@@ -80,6 +85,7 @@ public class SeckillServiceImpl implements ISeckillService{
         //判断库存redis 预减库存
         double stockQuantity = courseRedis.decr(courseNo, -1);
         if(stockQuantity <= 0){
+            //当库存没有时， 为true. 并且直接返回错误信息
             isSeckill.put(courseNo, true);
             return Result.failure(ResultCode.SECKILL_NO_QUOTE);
         }
@@ -88,23 +94,29 @@ public class SeckillServiceImpl implements ISeckillService{
         if(order != null){
             return Result.failure(ResultCode.SECKILL_BOUGHT);
         }
-        //减库存 下订单
+        //进入队列，减库存 下订单
         kafkaTempalte.send("test",courseNo+","+user.getUsername());
         //Orders newOrder = seckill(user, course);
         return Result.failure(ResultCode.SECKILL_LINE_UP);
     }
 
 
-
+    /**
+     * 用Redis缓存所有的课程
+     */
     @Override
     public void cacheAllCourse() {
+        //从数据库中读出来
         List<Course> courseList = courseService.findAllCourses();
         if(courseList == null){
             return;
         }
         for(Course course : courseList){
+            //60秒过期
             courseRedis.putString(course.getCourseNo(), course.getStockQuantity(), 60, true);
+            //为了方便，再把course 这个对象直接存进来
             courseRedis.put(course.getCourseNo(), course, -1);
+            //这里相当于初始化这个变量，所以要在这里给这个flag赋值
             isSeckill.put(course.getCourseNo(), false);
         }
 

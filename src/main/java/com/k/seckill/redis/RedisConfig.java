@@ -47,6 +47,7 @@ public class RedisConfig {
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(new JdkSerializationRedisSerializer());
         //redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
+        //采用String 的方式来序列化，（为了防止一些方法出现错误）
         redisTemplate.setValueSerializer(new StringRedisSerializer());
         redisTemplate.setConnectionFactory(factory);
     }
