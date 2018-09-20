@@ -21,13 +21,16 @@ public class CourseUtil {
         int courseStatus = COURSE_NOT_START;
         int remainTime = 0;
 
+        //课程还未开始
         if(now < startTime){
             courseStatus = COURSE_NOT_START;
             remainTime = (int) ((startTime - now)/1000);
         }else if(now > endTime){
+            //选课已经结束
             courseStatus = COURSE_COMPLETE;
             remainTime = -1;
         }else{
+            //选课正在进行中
             courseStatus = COURSE_PROCESSING;
             remainTime = -1;
         }

@@ -6,11 +6,10 @@ import com.k.seckill.base.result.Result;
 import com.k.seckill.base.result.ResultCode;
 import com.k.seckill.controller.LoginController;
 import com.k.seckill.model.User;
-import com.k.seckill.service.UserService;
+import com.k.seckill.service.IUserService;
 import com.k.seckill.util.MD5Util;
 import com.k.seckill.util.UUIDUtil;
 import com.k.seckill.vo.UserVO;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
@@ -37,7 +35,7 @@ public class LoginApiController extends BaseApiController {
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
 
     @RequestMapping(value = "/login")

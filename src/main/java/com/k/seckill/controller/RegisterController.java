@@ -1,7 +1,7 @@
 package com.k.seckill.controller;
 
 import com.k.seckill.model.User;
-import com.k.seckill.service.UserService;
+import com.k.seckill.service.IUserService;
 import com.k.seckill.util.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class RegisterController {
 
     @Autowired
-    public UserService userService;
+    public IUserService userService;
 
     private static Logger logger = LoggerFactory.getLogger(RegisterController.class);
 

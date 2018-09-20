@@ -1,7 +1,7 @@
 package com.k.seckill.controller;
 
 import com.k.seckill.model.User;
-import com.k.seckill.service.UserService;
+import com.k.seckill.service.IUserService;
 import com.k.seckill.util.MD5Util;
 import com.k.seckill.util.UUIDUtil;
 import com.k.seckill.util.ValidateCode;
@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +28,7 @@ public class LoginController {
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
 
     /**

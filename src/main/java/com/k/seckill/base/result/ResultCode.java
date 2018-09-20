@@ -17,6 +17,14 @@ public enum  ResultCode {
     FAIL(500, "失败"),
 
 
+    //秒课相关的错误信息
+
+    SECKILL_LINE_UP(500100, "排队中"),
+    SECKILL_NO_QUOTE(500101, "非常抱歉该课程名额已满，请联系管理员。"),
+    SECKILL_BOUGHT(500102, "你已购买该课程，请去订单页面查看。"),
+    SECKILL_PATH_ERROR(500104, "你的请求地址不正确，请联系管理员。"),
+    SECKILL_IP_OUTMAX(500105, "你的请求过于频繁，请稍后再试。"),
+
     /**
      * 和用户有关的错误
      * USER_开头

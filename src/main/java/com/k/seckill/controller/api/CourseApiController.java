@@ -3,8 +3,7 @@ package com.k.seckill.controller.api;
 import com.k.seckill.base.controller.BaseApiController;
 import com.k.seckill.base.result.Result;
 import com.k.seckill.model.Course;
-import com.k.seckill.service.CourseService;
-import com.k.seckill.service.impl.CourseServiceImpl;
+import com.k.seckill.service.ICourseService;
 import com.k.seckill.util.CourseUtil;
 import com.k.seckill.vo.CourseVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import java.util.List;
 public class CourseApiController extends BaseApiController {
 
     @Autowired
-    private CourseService courseService;
+    private ICourseService courseService;
 
     //获取所有的课程列表
     @RequestMapping(value = "/courseList", method = RequestMethod.GET)

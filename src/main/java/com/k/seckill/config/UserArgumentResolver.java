@@ -13,13 +13,13 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.k.seckill.model.User;
-import com.k.seckill.service.UserService;
+import com.k.seckill.service.IUserService;
 
 @Service
 public class UserArgumentResolver implements HandlerMethodArgumentResolver{
 
     @Autowired
-    public UserService userService;
+    public IUserService userService;
 
     public String getParameterCokies(HttpServletRequest request,String tokenName){
         Cookie[] cookies = request.getCookies();

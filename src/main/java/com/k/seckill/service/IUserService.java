@@ -3,7 +3,7 @@ package com.k.seckill.service;
 import com.k.seckill.model.User;
 import com.k.seckill.vo.UserVO;
 
-public interface UserService {
+public interface IUserService {
 
     public User register(User user);
 

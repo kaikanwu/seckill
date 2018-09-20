@@ -10,7 +10,7 @@ public class CourseVO implements Serializable{
 
     private Course course;
     private int courseStatus = 0;
-    private int remainTime = 0;
+    private int remainTime = 0;//距离选课还有多久
 
     public Course getCourse() {
         return course;

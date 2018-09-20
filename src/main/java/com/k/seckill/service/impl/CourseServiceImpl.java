@@ -15,11 +15,11 @@ import com.alibaba.fastjson.JSON;
 import com.k.seckill.model.Course;
 import com.k.seckill.redis.CourseRedis;
 import com.k.seckill.repository.CourseRepository;
-import com.k.seckill.service.CourseService;
+import com.k.seckill.service.ICourseService;
 
 @Service
 @Transactional
-public class CourseServiceImpl implements CourseService{
+public class CourseServiceImpl implements ICourseService {
 
     @Autowired
     private CourseRepository courseRepository;
@@ -34,8 +34,9 @@ public class CourseServiceImpl implements CourseService{
         List<Course> courseList = new ArrayList<Course>();
         //redis 中读取数据
         String courseListString = (String) courseRedis.getString(ALL_COURSE_REDIS);
+        //用JSON 把string 转化为list
         courseList = JSON.parseArray(courseListString, Course.class);
-        //mysql中读取数据
+        //如果没有从redis中读到，从mysql中读取，再存到redis中
         if(StringUtils.isEmpty(courseListString)){
             //读数据库
             courseList = courseRepository.findAll();
@@ -49,6 +50,7 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public Course findCourseByCourseNo(String courseNo) {
+        //Optional 是Java 8 中新特性，可以做空值的判断
         Optional<Course> course = courseRepository.findById(courseNo);
         return course.orElse(null);//course.isPresent()?user.get():null
     }
