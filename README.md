@@ -2,7 +2,7 @@
 
 这是基于Spring Boot 和 Vue.js 的前后端分离的秒杀课程的应用。
 
-这是后端部分，前端项目见： https://github.com/kaikanwu/seckill-front。
+这是后端部分，前端项目见： https://github.com/kaikanwu/seckill-front
 
 ## :dart: Introduction
 
