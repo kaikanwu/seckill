@@ -34,6 +34,8 @@ Other technologies/tools
 
 - DataGrip
 
+- JMeter
+
 
 Details in pom.xml
 
@@ -43,17 +45,19 @@ Details in pom.xml
 
 
 
+包结构：
+
+[![note5.PNG](https://i.loli.net/2018/09/22/5ba60b3acfbff.png)](
+
+前后端的交互：
+
+![note3.PNG](https://i.loli.net/2018/09/22/5ba609e55a2b0.png)
+
+使用Redis 和 Kafka 加入到下单的过程中，显著的提升系统的性能。
+
+![note4.PNG](https://i.loli.net/2018/09/22/5ba60a483ad7e.png)
 
 
-
-
-
-
-![note3](E:\project\seckill\pic\note1.png)
-
-
-
-![note4](E:\project\seckill\pic\note2.PNG)
 
 
 
