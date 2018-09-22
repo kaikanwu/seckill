@@ -51,10 +51,21 @@ public class LoginApiController extends BaseApiController {
             //判断密码是否相等
             if (dbUser.getPassword().equals(inputPassword)) {
 
+
+                System.out.println("===========================================");
+                System.out.println("login api 方法里：" + "username="+user.getUsername()+";password="+user.getPassword() );
+                System.out.println("===========================================");
+
                 //将登陆成功的user信息存入redis中
                 String token = UUIDUtil.getUUID();
                 userService.saveUserToRedisByToken(dbUser, token);
                 Cookie cookie = new Cookie("token", token);
+
+
+                System.out.println("==============");
+                System.out.println("login api 方法里 token===== "+token);
+                System.out.println("==============");
+
                 cookie.setMaxAge(3600);
                 cookie.setPath("/");
                 response.addCookie(cookie);

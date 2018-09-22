@@ -32,8 +32,15 @@ public class KafkaConsumer {
 
         //处理接收到的data record.value()
         String[] messages = record.value().toString().split(",");
+
+
+
         String courseNo  = messages[0];
         String username  = messages[1];
+
+        System.out.println("===============================================");
+        System.out.println(" 三 /Kafka consumer 里面的username" + username );
+        System.out.println("===============================================");
 
         //在业务层已经过滤了很多请求，这里开始直接访问数据库
 
@@ -46,6 +53,7 @@ public class KafkaConsumer {
         //判断是否已经购买
         Orders order = orderService.getOrderByUsernameAndCourseNo(username, courseNo);
         if(order != null){
+            //如果订单不为空，就表示已经购买，则直接返回
             return ;
         }
         //减库存 下订单

@@ -5,12 +5,12 @@ import com.k.seckill.vo.UserVO;
 
 public interface IUserService {
 
-    public User register(User user);
+     User register(User user);
 
-    public UserVO getUser(String username);
+     UserVO getUser(String username);
 
-    public void saveUserToRedisByToken(UserVO dbUser, String token);
+     void saveUserToRedisByToken(UserVO dbUser, String token);
 
-    public Object getUserFromRedisByToken(String token);
+     Object getUserFromRedisByToken(String token);
 
 }

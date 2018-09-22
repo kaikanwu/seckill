@@ -3,6 +3,9 @@ package com.k.seckill.util;
 import com.k.seckill.vo.CourseVO;
 import com.k.seckill.model.Course;
 
+/**
+ * 作用是 将course对象转化为CourseVO
+ */
 public class CourseUtil {
 
     public static final int COURSE_NOT_START = 0;

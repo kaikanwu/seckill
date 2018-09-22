@@ -58,14 +58,15 @@ public class Result<T> {
     }
 
 
-    public static <T> Result<T> success(ResultCode resultCode) {
-        Result<T> result = new Result<T>();
-        result.setResultCode(resultCode);
-        return result;
-    }
+//    public static <T> Result<T> success(ResultCode resultCode) {
+//        Result<T> result = new Result<T>();
+//        result.setResultCode(resultCode);
+//        return result;
+//    }
 
     public static <T> Result<T> success(T data) {
         Result<T> result = new Result<T>();
+        result.setResultCode(ResultCode.SUCCESS);
         result.setData(data);
         return result;
     }

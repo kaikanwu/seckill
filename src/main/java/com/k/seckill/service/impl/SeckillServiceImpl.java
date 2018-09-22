@@ -58,6 +58,11 @@ public class SeckillServiceImpl implements ISeckillService{
     public Orders seckill(User user, Course course){
         //减库存
         int success = courseService.reduceStockByCourseNo(course.getCourseNo());
+
+        System.out.println("===============================================");
+        System.out.println("四 /Orders 方法里的username" + user.getUsername() );
+        System.out.println("===============================================");
+
         //下订单
         if(success > 0){
             Orders orders = new Orders();
@@ -73,6 +78,12 @@ public class SeckillServiceImpl implements ISeckillService{
     }
 
 
+    /**
+     * seckillFlow 1
+     * @param user
+     * @param courseNo
+     * @return
+     */
 
     @Override
     public Result<Orders> seckillFlow(User user, String courseNo) {
@@ -176,7 +187,7 @@ public class SeckillServiceImpl implements ISeckillService{
             return Result.failure(ResultCode.SECKILL_BOUGHT);
         }
         //减库存 下订单
-        kafkaTempalte.send("test",courseNo+","+user.getUsername());
+        kafkaTempalte.send("test",courseNo+","+ user.getUsername());
         //Orders newOrder = seckill(user, course);
         return Result.failure(ResultCode.SECKILL_LINE_UP);
     }
@@ -196,7 +207,7 @@ public class SeckillServiceImpl implements ISeckillService{
         String ip = IpUtil.getIpAddr(request);
 
         System.out.println(ip);
-        if(seckillRedis.incr(ip, 1) >= 3){
+        if(seckillRedis.incr(ip, 1) >= 100){
             return Result.failure(ResultCode.SECKILL_IP_OUTMAX);
         }
 
@@ -222,6 +233,11 @@ public class SeckillServiceImpl implements ISeckillService{
         if(order != null){
             return Result.failure(ResultCode.SECKILL_BOUGHT);
         }
+
+
+        System.out.println("===============================================");
+        System.out.println(" ② seckillFlow 方法里的username" + user.getUsername() );
+        System.out.println("===============================================");
         //减库存 下订单
         kafkaTempalte.send("test",courseNo+","+user.getUsername());
         //Orders newOrder = seckill(user, course);

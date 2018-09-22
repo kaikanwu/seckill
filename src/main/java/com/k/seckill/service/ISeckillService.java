@@ -14,7 +14,7 @@ public interface ISeckillService {
 
     void cacheAllCourse();
 
-    public Orders seckill(User user, Course course);
+    Orders seckill(User user, Course course);
 
     Result<Orders> seckillResult(User user, String courseNo);
 

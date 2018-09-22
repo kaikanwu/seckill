@@ -57,6 +57,11 @@ public class UserServiceImpl implements IUserService {
 
         User user = new User();
         BeanUtils.copyProperties(dbUser, user);
+
+
+        System.out.println("===========================================");
+        System.out.println("将用户信息放入redis之前，：" + "username="+user.getUsername()+";password="+user.getPassword() );
+        System.out.println("===========================================");
         //将信息放入redis
         userRedis.put(token, user, 3600);
     }
@@ -65,5 +70,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Object getUserFromRedisByToken(String token) {
         return userRedis.get(token);
+
+
     }
 }

@@ -11,8 +11,8 @@ import com.k.seckill.model.Orders;
 @Repository
 public interface OrderRepository  extends JpaRepository<Orders, String>{
 
-    public Orders findByUsernameAndCourseNo(String username, String courseNo);
+     Orders findByUsernameAndCourseNo(String username, String courseNo);
 
-    public List<Orders> findByUsername(String username, Sort sort);
+     List<Orders> findByUsername(String username, Sort sort);
 
 }

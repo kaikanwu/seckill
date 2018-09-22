@@ -66,11 +66,18 @@ public class LoginController {
             //判断密码是否相等
             if (dbUser.getPassword().equals(inputPassword)) {
 //                session.setAttribute("user", dbUser);
+                System.out.println("==============");
+                System.out.println("==============登录成功!========");
+                System.out.println("==============");
 //                logger.info("==============登录成功!========");
                 //将登陆成功的user信息存入redis中
                 String token = UUIDUtil.getUUID();
                 userService.saveUserToRedisByToken(dbUser, token);
-                System.out.println("token===== "+token);
+
+                System.out.println("==============");
+                System.out.println("token 为===== "+token);
+                System.out.println("==============");
+
                 Cookie cookie = new Cookie("token", token);
                 cookie.setMaxAge(3600);
                 cookie.setPath("/");
