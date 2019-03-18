@@ -32,9 +32,6 @@ public class SeckillApiController extends BaseApiController implements Initializ
         if(user == null){
             return Result.failure();
         }
-
-
-
         System.out.println("===============================================");
         System.out.println(" ① API里的username" + user.getUsername() );
         System.out.println("===============================================");

@@ -43,8 +43,6 @@ public class KafkaConsumer {
         System.out.println("===============================================");
 
         //在业务层已经过滤了很多请求，这里开始直接访问数据库
-
-
         Course course = courseService.findCourseByCourseNo(courseNo);
         int stock = course.getStockQuantity();
         if(stock <= 0){
